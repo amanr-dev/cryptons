@@ -13,7 +13,8 @@ export const cryptoApi = createApi({
   reducerPath: "cryptoApi",
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
-    prepareHeaders: (headers) => {
+    prepareHeaders: (headers, { getState }) => {
+      console.log(getState);
       headers = cryptoHeaders;
       return headers;
     },

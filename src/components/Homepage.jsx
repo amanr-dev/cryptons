@@ -13,7 +13,7 @@ import { useGetCryptoQuery } from "../services/cryptoAPI";
 const Homepage = () => {
   // const { data, isFetching } = useGetCryptoQuery();
   // console.log(data);
-  const { data, error, isLoading } = useGetCryptoQuery();
+  // const { data, error, isLoading } = useGetCryptoQuery();
   return (
     <>
       <Typography className="heading" variant="h2">
