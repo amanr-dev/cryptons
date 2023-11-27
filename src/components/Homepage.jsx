@@ -11,8 +11,9 @@ import React from "react";
 import { useGetCryptoQuery } from "../services/cryptoAPI";
 
 const Homepage = () => {
-  const { data, isFetching } = useGetCryptoQuery();
-  console.log(data);
+  // const { data, isFetching } = useGetCryptoQuery();
+  // console.log(data);
+  const { data, error, isLoading } = useGetCryptoQuery();
   return (
     <>
       <Typography className="heading" variant="h2">
