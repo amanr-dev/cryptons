@@ -7,13 +7,30 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { useGetCryptoQuery } from "../services/cryptoAPI";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { cryptoUrl, fetchData } from "../services/cryptoAPI";
+import millify from "millify";
+import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const Homepage = () => {
-  // const { data, isFetching } = useGetCryptoQuery();
-  // console.log(data);
-  // const { data, error, isLoading } = useGetCryptoQuery();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.data.data);
+  const status = useSelector((state) => state.data.status);
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchData(`${cryptoUrl}coins`));
+      setLoading(false);
+    } else if (status === "loading") {
+      return setLoading(true);
+    }
+    console.log(data);
+  }, [status, dispatch]);
+
+  const globalStats = data.data.stats;
   return (
     <>
       <Typography className="heading" variant="h2">
@@ -42,23 +59,31 @@ const Homepage = () => {
         <TableBody>
           <TableRow>
             <TableCell colSpan={12} align="left">
-              5
+              {globalStats.total.toLocaleString()}
             </TableCell>
             <TableCell colSpan={12} align="left">
-              5
+              {millify(globalStats.totalExchanges)}
             </TableCell>
             <TableCell colSpan={12} align="left">
-              5
+              {millify(globalStats.totalMarketCap)}
             </TableCell>
             <TableCell colSpan={12} align="right">
-              5
+              {millify(globalStats.total24hVolume)}
             </TableCell>
             <TableCell colSpan={12} align="right">
-              5
+              {millify(globalStats.totalMarkets)}
             </TableCell>
           </TableRow>
         </TableBody>
       </Table>
+      <Box className="home-heading-container">
+        <Typography variant="h4" className="home-title">
+          Top 10 Crypto Currencies in the world
+        </Typography>
+        <Typography variant="h5" className="show-more">
+          <Link to="/cryptocurrencies">Show More</Link>
+        </Typography>
+      </Box>
     </>
   );
 };
