@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { cryptoUrl, fetchData } from "../services/cryptoAPI";
 import millify from "millify";
 import { Box } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import News from "./News";
 import CryptoCurrencies from "./CryptoCurrencies";
 
@@ -21,11 +21,18 @@ const Homepage = () => {
   const status = useSelector((state) => state.data.status);
   const [loading, setLoading] = useState(false);
   const [cryptoData, setCryptoData] = useState(data);
+  const [simplified, setSimplified] = useState(10);
   const dispatch = useDispatch();
+
+  // if (!localStorage.getItem("coins")) {
+  //   localStorage.setItem("coins", JSON.stringify(data));
+  // }
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchData(`${cryptoUrl}coins`));
+      dispatch(fetchData(`${cryptoUrl}coins?limit=${simplified}`));
+      localStorage.setItem("coins", JSON.stringify(data));
+
       setLoading(false);
     } else if (status === "loading") {
       return setLoading(true);
@@ -87,7 +94,11 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show More</Link>
         </Typography>
       </Box>
-      <CryptoCurrencies data={cryptoData} simplified />
+      <CryptoCurrencies
+        data={cryptoData}
+        simplified={simplified}
+        setSimplified={setSimplified}
+      />
       <Box className="home-heading-container">
         <Typography variant="h4" className="home-title">
           Latest Crypto News
@@ -96,7 +107,7 @@ const Homepage = () => {
           <Link to="/news">Show More</Link>
         </Typography>
       </Box>
-      <News simplified />
+      <News simplified={simplified} />
     </>
   );
 };

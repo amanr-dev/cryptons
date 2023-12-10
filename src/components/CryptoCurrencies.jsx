@@ -18,22 +18,9 @@ import { cryptoUrl, fetchData } from "../services/cryptoAPI";
 import { Box, color, shadows } from "@mui/system";
 import { hover } from "@testing-library/user-event/dist/hover";
 
-const CryptoCurrencies = ({ data }) => {
+const CryptoCurrencies = ({ data, simplified }) => {
+  // const count = simplified ? 10 : 100;
   const cryptos = data?.data?.coins;
-  // Selectors
-  // const data = useSelector((state) => state.data.data);
-  // const status = useSelector((state) => state.data.status);
-
-  // const [loading, setLoading] = useState(false);
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (status === "idle") {
-  //     dispatch(fetchData(`${cryptoUrl}coins`));
-  //     setLoading(false);
-  //   } else if (status === "loading") {
-  //     return setLoading(true);
-  //   }
-  // }, [status, dispatch]);
 
   if (!cryptos) {
     return "Loading...";
