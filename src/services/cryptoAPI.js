@@ -46,6 +46,7 @@ export const fetchData = createAsyncThunk("services/cryptoAPI", async (url) => {
     const response = await axios.get(url, { headers });
     return response.data;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 });

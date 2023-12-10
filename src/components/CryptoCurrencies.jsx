@@ -1,7 +1,122 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  TableRow,
+  TableCell,
+  Input,
+  CardHeader,
+  CardMedia,
+  TableHead,
+  CardContent,
+  Typography,
+  TableBody,
+} from "@mui/material";
+import millify from "millify";
+import { useDispatch, useSelector } from "react-redux";
+import { cryptoUrl, fetchData } from "../services/cryptoAPI";
+import { Box, color, shadows } from "@mui/system";
+import { hover } from "@testing-library/user-event/dist/hover";
 
-const CryptoCurrencies = () => {
-  return <div>CryptoCurrencies</div>;
+const CryptoCurrencies = ({ data }) => {
+  const cryptos = data?.data?.coins;
+  // Selectors
+  // const data = useSelector((state) => state.data.data);
+  // const status = useSelector((state) => state.data.status);
+
+  // const [loading, setLoading] = useState(false);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(fetchData(`${cryptoUrl}coins`));
+  //     setLoading(false);
+  //   } else if (status === "loading") {
+  //     return setLoading(true);
+  //   }
+  // }, [status, dispatch]);
+
+  if (!cryptos) {
+    return "Loading...";
+  }
+  console.log(cryptos);
+
+  return (
+    <>
+      <>
+        <Box component="section" className="card-container">
+          {cryptos?.map((currency) => (
+            <Box
+              sx={{
+                width: "250px",
+                // height: "500px",
+                textDecoration: "none",
+                listStyle: "none",
+                display: "flex",
+                alignItems: "start",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+              key={currency.uuid}
+            >
+              <Link style={{ width: "100%" }} to={`/crypto/${currency.id}`}>
+                <Card
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    width: "100%",
+                    padding: "10px 0px",
+                    borderBottomRightRadius: "0px",
+                    borderBottomLeftRadius: "0px",
+                  }}
+                >
+                  <CardHeader
+                    sx={{
+                      fontSize: "1.2rem",
+                      textDecoration: "none",
+                      listStyle: "none",
+                    }}
+                    title={`${currency.rank}. ${currency.name}`}
+                  />
+                  <CardMedia
+                    sx={{ width: "40px" }}
+                    component="img"
+                    image={currency.iconUrl}
+                    alt={currency.name}
+                  />
+                </Card>
+                <CardContent
+                  style={{
+                    backgroundColor: "#fff",
+                    color: "rgba(0, 0, 0, 0.87)",
+                    transition:
+                      " box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+
+                    borderRadius: "4px",
+                    borderTopRightRadius: "0px",
+                    borderTopLeftRadius: "0px",
+                    boxShadow:
+                      " 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)",
+                  }}
+                >
+                  <Typography gutterBottom variant="body2">
+                    Price: {millify(currency.price)}
+                  </Typography>
+                  <Typography gutterBottom variant="body2">
+                    Market Cap: {millify(currency.marketCap)}
+                  </Typography>
+                  <Typography gutterBottom variant="body2">
+                    Daily Change: {millify(currency.change)}
+                  </Typography>
+                </CardContent>
+              </Link>
+            </Box>
+          ))}
+        </Box>
+      </>
+    </>
+  );
 };
 
 export default CryptoCurrencies;
