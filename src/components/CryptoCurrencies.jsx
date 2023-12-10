@@ -14,8 +14,8 @@ import {
   Paper,
 } from "@mui/material";
 import millify from "millify";
-import { useDispatch, useSelector } from "react-redux";
-import { cryptoUrl, fetchData } from "../services/cryptoAPI";
+import { useSelector } from "react-redux";
+// import { cryptoUrl, fetchData } from "../services/cryptoAPI";
 import { Box, color, shadows } from "@mui/system";
 import { hover } from "@testing-library/user-event/dist/hover";
 
