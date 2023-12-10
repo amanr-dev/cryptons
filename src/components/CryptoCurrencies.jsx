@@ -18,20 +18,19 @@ import { cryptoUrl, fetchData } from "../services/cryptoAPI";
 import { Box, color, shadows } from "@mui/system";
 import { hover } from "@testing-library/user-event/dist/hover";
 
-const CryptoCurrencies = ({ data, simplified }) => {
+const CryptoCurrencies = ({ cryptoData, simplified }) => {
   // const count = simplified ? 10 : 100;
-  const cryptos = data?.data?.coins;
 
-  if (!cryptos) {
-    return "Loading...";
-  }
-  console.log(cryptos);
+  // if (!cryptos) {
+  //   return "Loading...";
+  // }
+  console.log(cryptoData);
 
   return (
     <>
       <>
         <Box component="section" className="card-container">
-          {cryptos?.map((currency) => (
+          {cryptoData?.map((currency) => (
             <Box
               sx={{
                 width: "250px",

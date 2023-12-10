@@ -17,30 +17,31 @@ import News from "./News";
 import CryptoCurrencies from "./CryptoCurrencies";
 
 const Homepage = () => {
-  const data = useSelector((state) => state.data.data);
-  const status = useSelector((state) => state.data.status);
+  if (!localStorage.getItem("coins")) {
+    localStorage.setItem("coins", JSON.stringify(data.data));
+  }
+  // const data = useSelector((state) => state.data.data);
+  const [data, setData] = useState(JSON.parse(localStorage.getItem("coins")));
+  // const status = useSelector((state) => state.data.status);
   const [loading, setLoading] = useState(false);
-  const [cryptoData, setCryptoData] = useState(data);
+  const [cryptoData, setCryptoData] = useState(data?.coins);
   const [simplified, setSimplified] = useState(10);
   const dispatch = useDispatch();
 
-  // if (!localStorage.getItem("coins")) {
-  //   localStorage.setItem("coins", JSON.stringify(data));
-  // }
+  // console.log(data);
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(fetchData(`${cryptoUrl}coins?limit=${simplified}`));
+  //     // localStorage.setItem("coins", JSON.stringify(data));
+  //     setLoading(false);
+  //   } else if (status === "loading") {
+  //     return setLoading(true);
+  //   }
+  //   // console.log(data);
+  // }, [status, dispatch]);
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchData(`${cryptoUrl}coins?limit=${simplified}`));
-      localStorage.setItem("coins", JSON.stringify(data));
-
-      setLoading(false);
-    } else if (status === "loading") {
-      return setLoading(true);
-    }
-    // console.log(data);
-  }, [status, dispatch]);
-
-  const globalStats = data?.data?.stats;
+  // const globalStats = data?.data?.stats;
+  const globalStats = data?.stats;
   return (
     <>
       <Typography className="heading" variant="h2">
@@ -95,7 +96,7 @@ const Homepage = () => {
         </Typography>
       </Box>
       <CryptoCurrencies
-        data={cryptoData}
+        cryptoData={cryptoData}
         simplified={simplified}
         setSimplified={setSimplified}
       />
