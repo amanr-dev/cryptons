@@ -25,13 +25,13 @@ const Homepage = () => {
   // const status = useSelector((state) => state.data.status);
   const [loading, setLoading] = useState(false);
   const [cryptoData, setCryptoData] = useState(data?.coins);
-  const [simplified, setSimplified] = useState(10);
+  const [numb, setNumb] = useState(10);
   const dispatch = useDispatch();
 
-  // console.log(data);
+  // console.log(simplified);
   // useEffect(() => {
   //   if (status === "idle") {
-  //     dispatch(fetchData(`${cryptoUrl}coins?limit=${simplified}`));
+  //     dispatch(fetchData(`${cryptoUrl}coins?limit=${numb}`));
   //     // localStorage.setItem("coins", JSON.stringify(data));
   //     setLoading(false);
   //   } else if (status === "loading") {
@@ -95,11 +95,7 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show More</Link>
         </Typography>
       </Box>
-      <CryptoCurrencies
-        cryptoData={cryptoData}
-        simplified={simplified}
-        setSimplified={setSimplified}
-      />
+      <CryptoCurrencies cryptoData={cryptoData} simplified numb={numb} />
       <Box className="home-heading-container">
         <Typography variant="h4" className="home-title">
           Latest Crypto News
@@ -108,7 +104,7 @@ const Homepage = () => {
           <Link to="/news">Show More</Link>
         </Typography>
       </Box>
-      <News simplified={simplified} />
+      <News simplified />
     </>
   );
 };

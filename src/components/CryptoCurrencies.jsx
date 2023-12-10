@@ -11,6 +11,7 @@ import {
   CardContent,
   Typography,
   TableBody,
+  Paper,
 } from "@mui/material";
 import millify from "millify";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,19 +19,57 @@ import { cryptoUrl, fetchData } from "../services/cryptoAPI";
 import { Box, color, shadows } from "@mui/system";
 import { hover } from "@testing-library/user-event/dist/hover";
 
-const CryptoCurrencies = ({ cryptoData, simplified }) => {
+const CryptoCurrencies = ({ simplified }) => {
+  const data = JSON.parse(localStorage.getItem("coins"));
+  const [searchTerm, setSearchTerm] = useState("");
+  const status = useSelector((state) => state.data.status);
+  const [cryptoData, setCryptoData] = useState(data.coins);
   // const count = simplified ? 10 : 100;
 
   // if (!cryptos) {
   //   return "Loading...";
   // }
-  console.log(cryptoData);
+  // console.log(simplified);
+
+  useEffect(() => {
+    if (searchTerm.length) {
+      const filteredData = data.coins.filter((coin) =>
+        coin.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      console.log(filteredData);
+      setCryptoData(filteredData);
+    }
+  }, [searchTerm]);
+
+  if (status === "loading") {
+    return <h1>Loading</h1>;
+  }
 
   return (
     <>
       <>
+        {!simplified && (
+          <Paper
+            sx={{ padding: "10px 5px", width: "100%", margin: "12px" }}
+            variant="elevation"
+            elevation={1}
+            className="search-cryptos"
+          >
+            <Input
+              disableUnderline
+              fullWidth
+              sx={{
+                padding: "5px 10px",
+              }}
+              type="text"
+              value={searchTerm}
+              placeholder="Search Cryptocurrencies"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Paper>
+        )}
         <Box component="section" className="card-container">
-          {cryptoData?.map((currency) => (
+          {cryptoData.map((currency) => (
             <Box
               sx={{
                 width: "250px",
