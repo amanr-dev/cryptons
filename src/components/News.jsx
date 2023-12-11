@@ -9,12 +9,12 @@ const News = ({ simplified }) => {
   const dispatch = useDispatch();
   const data = useSelector((status) => status.news.data);
   const status = useSelector((status) => status.news.status);
-  let count = `${simplified ? 10 : 100}`;
-  console.log({ data, status });
+  const count = simplified ? "10" : "100";
+  // console.log({ data, status });
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchNews("cryptocurrencies", count));
+      dispatch(fetchNews("crypto", "10"));
     } else if (status === "loading") {
       return alert("it's loading");
     }

@@ -19,7 +19,7 @@ export const fetchNews = createAsyncThunk(
         "X-RapidAPI-Host": "news-api14.p.rapidapi.com",
       };
       const response = await axios.get(
-        `${newsUrl}?=${category}&pageSize=${count}`,
+        `${newsUrl}=${category}&pageSize=${count}`,
         { headers }
       );
       return response.data;
