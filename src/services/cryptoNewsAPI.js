@@ -11,17 +11,14 @@ const initialState = {
 
 export const fetchNews = createAsyncThunk(
   "services/cryptoNewsAPI",
-  async (category, count) => {
+  async (url) => {
     try {
       const headers = {
         "X-BingApis-SDK": "true",
         "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
         "X-RapidAPI-Host": "news-api14.p.rapidapi.com",
       };
-      const response = await axios.get(
-        `${newsUrl}=${category}&pageSize=${count}`,
-        { headers }
-      );
+      const response = await axios.get(url, { headers });
       return response.data;
     } catch (error) {
       console.log(`⚠️😲😱${error}`);
