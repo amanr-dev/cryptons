@@ -50,7 +50,7 @@ const News = ({ simplified }) => {
 
   const { articles } = data;
   return (
-    <Box sx={{ width: "100vw" }} component="section">
+    <Box sx={{ width: "100%" }} component="section">
       <Box className="news-container">
         {articles?.map((news, index) => (
           <Card className="news-card" key={index}>

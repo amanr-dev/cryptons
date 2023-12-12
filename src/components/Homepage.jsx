@@ -43,7 +43,7 @@ const Homepage = () => {
   // const globalStats = data?.data?.stats;
   const globalStats = data?.stats;
   return (
-    <>
+    <Box component="section" width="100%">
       <Typography className="heading" variant="h2">
         Gobal Crypto Stats
       </Typography>
@@ -105,7 +105,7 @@ const Homepage = () => {
         </Typography>
       </Box>
       <News simplified />
-    </>
+    </Box>
   );
 };
 
