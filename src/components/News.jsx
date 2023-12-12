@@ -19,7 +19,7 @@ const News = ({ simplified }) => {
   const dispatch = useDispatch();
   const data = useSelector((status) => status.news.data);
   const status = useSelector((status) => status.news.status);
-  const [page, setPage] = useState(simplified ? 6 : 30);
+  const [page, setPage] = useState(simplified ? 12 : 30);
 
   // console.log({ data, status, page, simplified });
 
@@ -33,13 +33,11 @@ const News = ({ simplified }) => {
     }
   };
 
-  console.log({ simplified, page });
+  console.log({ simplified, page, status, data });
 
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchNews(`${newsUrl}?q=crypto&pageSize=${page}`));
-    } else if (status === "loading") {
-      return alert("it's loading");
     }
     // console.log(findIndex(12));
   }, []);
