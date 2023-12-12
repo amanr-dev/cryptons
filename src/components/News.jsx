@@ -20,27 +20,32 @@ const News = ({ simplified }) => {
   const data = useSelector((status) => status.news.data);
   const status = useSelector((status) => status.news.status);
   const [page, setPage] = useState(simplified ? 12 : 30);
-
-  // console.log({ data, status, page, simplified });
+  const [articles, setArticles] = useState([]);
 
   // Images length shorting by index
   const findIndex = (index) => {
     if (index >= images.length) {
-      const imageShort = images.length - 1; //5
-      return index - imageShort;
+      const imageShort = images.length - images.length - 1; //5
+      return index % imageShort;
     } else {
       return index;
     }
   };
 
-  console.log({ simplified, page, status, data });
+  // console.log({ simplified, page, status, data });
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchNews(`${newsUrl}?q=crypto&pageSize=${page}`));
+      dispatch(fetchNews(`${newsUrl}?q=crypto`));
     }
-    // console.log(findIndex(12));
-  }, []);
+    if (!simplified) {
+      setArticles(data?.articles);
+    } else {
+      setArticles(data?.articles?.slice(0, 6));
+    }
+    // console.log(articles);
+    findIndex(14);
+  }, [window.location.href]);
 
   if (status === "loading") {
     return <Bars color="#001529" width={50} height={50} visible={true} />;
@@ -48,7 +53,7 @@ const News = ({ simplified }) => {
 
   // console.log(data.articles[0].publisher.name);
 
-  const { articles } = data;
+  // const { articles } = data;
   return (
     <Box sx={{ width: "100%" }} component="section">
       <Box className="news-container">
