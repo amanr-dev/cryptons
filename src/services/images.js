@@ -6,4 +6,6 @@ export const images = [
   "https://images.cnbctv18.com/wp-content/uploads/2022/09/cryptocurrency-2.jpg",
   "https://www.nasdaq.com/sites/acquia.prod/files/styles/720x400/public/2022/12/07/cryptocurrency-Nuthawut-adobe.jpeg?h=34bbd072&itok=NNYETVd0",
   "http://coinrevolution.com/wp-content/uploads/2020/06/cryptonews.jpg",
+  "https://www.centralbank.net/uploadedfiles/images/articles/crypto-par-2.png?v=1D896BD3A634800",
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSd00Qk1E_p139HtpkEBQ-F09-uJcQRIreEA&usqp=CAU",
 ];

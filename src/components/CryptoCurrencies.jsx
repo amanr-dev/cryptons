@@ -36,7 +36,7 @@ const CryptoCurrencies = ({ simplified }) => {
       const filteredData = data.coins.filter((coin) =>
         coin.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      console.log(filteredData);
+      // console.log(filteredData);
       setCryptoData(filteredData);
     }
   }, [searchTerm]);

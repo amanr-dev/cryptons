@@ -22,17 +22,15 @@ const News = ({ simplified }) => {
   const [page, setPage] = useState(simplified ? 12 : 30);
   const [articles, setArticles] = useState([]);
 
-  // Images length shorting by index
   const findIndex = (index) => {
     if (index >= images.length) {
-      const imageShort = images.length - images.length - 1; //5
+      const imageShort = images.length - 1;
+
       return index % imageShort;
     } else {
       return index;
     }
   };
-
-  // console.log({ simplified, page, status, data });
 
   useEffect(() => {
     if (status === "idle") {
