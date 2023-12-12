@@ -19,7 +19,7 @@ const News = ({ simplified }) => {
   const dispatch = useDispatch();
   const data = useSelector((status) => status.news.data);
   const status = useSelector((status) => status.news.status);
-  const [page, setPage] = useState(simplified ? 100 : 10);
+  const [page, setPage] = useState(simplified ? 6 : 30);
 
   // console.log({ data, status, page, simplified });
 
@@ -32,6 +32,8 @@ const News = ({ simplified }) => {
       return index;
     }
   };
+
+  console.log({ simplified, page });
 
   useEffect(() => {
     if (status === "idle") {
@@ -57,11 +59,16 @@ const News = ({ simplified }) => {
             <a href={news.url} target="_blank" rel="noreferrer">
               <CardHeader
                 title={news.publisher?.name}
-                subheader={news.published_date.slice(0, 19)}
+                subheader={moment(news.published_date).startOf("ss").fromNow()}
                 className="news-title"
               />
               <CardMedia
-                sx={{ width: "250px" }}
+                sx={{
+                  width: "350px",
+                  height: "200px",
+                  maxWidth: "350px",
+                  maxHeight: "200px",
+                }}
                 component="img"
                 image={images[findIndex(index)]}
                 alt={news.title.slice(0, 20)}

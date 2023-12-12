@@ -295,13 +295,14 @@ a:hover {
 }
 .news-card {
   min-height: 300px !important;
+  width: 350px;
 }
 .news-image-container {
   display: flex !important;
   justify-content: space-between !important;
 }
 .news-title {
-  width: 70%;
+  width: 100%;
 }
 
 .news-image-container .img {
