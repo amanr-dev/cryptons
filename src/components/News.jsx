@@ -1,7 +1,6 @@
 import {
   Select,
   Typography,
-  Avatar,
   Box,
   Card,
   CardContent,
@@ -60,7 +59,7 @@ const News = ({ simplified }) => {
     // findIndex(14);
   }, [window.location.href]);
 
-  if (status === "loading" || !articles?.length) {
+  if (status === "loading") {
     return (
       <Box
         display="flex"
@@ -68,13 +67,13 @@ const News = ({ simplified }) => {
         alignItems="center"
         justifyContent="center"
       >
-        <Bars color="#001529" width={50} height={50} visible={true} />;
+        <Bars color="#001529" width={50} height={50} visible={true} />
       </Box>
     );
   }
 
   return (
-    <Box sx={{ width: "100%" }} component="section">
+    <Box sx={{ width: "100%", padding: "8px" }} component="section">
       {!simplified && (
         <Box
           display="flex"
@@ -82,8 +81,14 @@ const News = ({ simplified }) => {
           justifyContent="start"
           width="100%"
         >
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="select-label">Select</InputLabel>
+          <FormControl
+            variant="standard"
+            sx={{ m: 1, minWidth: 120 }}
+            size="small"
+          >
+            <InputLabel variant="filled" id="select-label">
+              Select
+            </InputLabel>
             <Select
               labelId="select-label"
               label="Cryptocurrencies"
@@ -105,7 +110,7 @@ const News = ({ simplified }) => {
 
       <Box className="news-container">
         {articles?.map((news, index) => (
-          <Card className="news-card" key={index}>
+          <Card className="news-card card" key={index}>
             <a href={news.url} target="_blank" rel="noreferrer">
               <CardHeader
                 title={news.publisher?.name}

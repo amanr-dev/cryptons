@@ -82,8 +82,9 @@ const CryptoCurrencies = ({ simplified }) => {
                 flexDirection: "row",
               }}
               key={currency.uuid}
+              className="card"
             >
-              <Link style={{ width: "100%" }} to={`/crypto/${currency.id}`}>
+              <Link style={{ width: "100%" }} to={`/crypto/${currency.uuid}`}>
                 <Card
                   sx={{
                     display: "flex",

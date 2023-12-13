@@ -400,3 +400,14 @@ a:hover {
   color: var(--text2);
   padding: 2px 5px;
 }
+
+.card:hover {
+  box-shadow: 2px 2px 5px #222;
+  border-radius: 9px;
+  transition: all ease-in 0.3s;
+}
+
+a {
+  font-size: 1.2rem;
+  color: #333;
+}
