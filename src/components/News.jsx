@@ -25,7 +25,6 @@ const News = ({ simplified }) => {
   const findIndex = (index) => {
     if (index >= images.length) {
       const imageShort = images.length - 1;
-
       return index % imageShort;
     } else {
       return index;
