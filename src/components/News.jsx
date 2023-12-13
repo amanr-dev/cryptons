@@ -7,10 +7,13 @@ import {
   CardContent,
   CardMedia,
   CardHeader,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { Bars, Blocks } from "react-loader-spinner";
+import { Bars } from "react-loader-spinner";
 import { fetchNews, newsUrl } from "../services/cryptoNewsAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { images } from "../services/images";
@@ -19,8 +22,11 @@ const News = ({ simplified }) => {
   const dispatch = useDispatch();
   const data = useSelector((status) => status.news.data);
   const status = useSelector((status) => status.news.status);
-  const [page, setPage] = useState(simplified ? 12 : 30);
+
   const [articles, setArticles] = useState([]);
+
+  const coins = JSON.parse(localStorage.getItem("coins"));
+  const [selected, setSelected] = useState("Crypto");
 
   const findIndex = (index) => {
     if (index >= images.length) {
@@ -31,6 +37,16 @@ const News = ({ simplified }) => {
     }
   };
 
+  const handleSelect = (e) => {
+    if (!simplified) {
+      setSelected(e);
+      dispatch(fetchNews(`${newsUrl}?q=${selected}`));
+    }
+  };
+
+  // TODO:- Here crypto data should render 100 results
+  // console.log(selected);
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchNews(`${newsUrl}?q=crypto`));
@@ -40,19 +56,53 @@ const News = ({ simplified }) => {
     } else {
       setArticles(data?.articles?.slice(0, 6));
     }
-    // console.log(articles);
-    findIndex(14);
+
+    // findIndex(14);
   }, [window.location.href]);
 
-  if (status === "loading") {
-    return <Bars color="#001529" width={50} height={50} visible={true} />;
+  if (status === "loading" || !articles?.length) {
+    return (
+      <Box
+        display="flex"
+        width="100%"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Bars color="#001529" width={50} height={50} visible={true} />;
+      </Box>
+    );
   }
 
-  // console.log(data.articles[0].publisher.name);
-
-  // const { articles } = data;
   return (
     <Box sx={{ width: "100%" }} component="section">
+      {!simplified && (
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="start"
+          width="100%"
+        >
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="select-label">Select</InputLabel>
+            <Select
+              labelId="select-label"
+              label="Cryptocurrencies"
+              value={selected}
+              placeholder="Select"
+              onChange={(e) => handleSelect(e.target.value)}
+              className="select-news"
+            >
+              <MenuItem>{selected}</MenuItem>
+              {coins?.coins.map((coin) => (
+                <MenuItem value={coin.name} key={coin.uuid}>
+                  {coin.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
+      )}
+
       <Box className="news-container">
         {articles?.map((news, index) => (
           <Card className="news-card" key={index}>

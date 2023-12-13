@@ -95,7 +95,7 @@ const Homepage = () => {
           <Link to="/cryptocurrencies">Show More</Link>
         </Typography>
       </Box>
-      <CryptoCurrencies cryptoData={cryptoData} simplified numb={numb} />
+      <CryptoCurrencies cryptoData={cryptoData} simplified />
       <Box className="home-heading-container">
         <Typography variant="h4" className="home-title">
           Latest Crypto News
