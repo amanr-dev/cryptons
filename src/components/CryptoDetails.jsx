@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { fetchData, cryptoUrl } from "../services/cryptoAPI";
 import { Typography, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Bars } from "react-loader-spinner";
-import { fetchCoinData } from "../services/getCoinData";
+import { coinUrl, fetchCoinData } from "../services/getCoinData";
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
@@ -49,11 +48,12 @@ const CryptoDetails = () => {
   // example response
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd=24h
   useEffect(() => {
-    if (coinId) {
-      dispatch(fetchCoinData(`${cryptoUrl}${coinId}?timePeriod=${timePeriod}`));
+    if (status === "idle") {
+      dispatch(fetchCoinData(`${coinUrl}${coinId}?timePeriod=${timePeriod}`));
     }
+
     console.log({ data, status });
-  }, []);
+  }, [coinId]);
 
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd?timePeriod=24h
 

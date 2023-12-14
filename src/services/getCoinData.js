@@ -3,7 +3,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const cryptoUrl = "https://coinranking1.p.rapidapi.com/coin/";
+export const coinUrl = "https://coinranking1.p.rapidapi.com/coin/";
 
 const initialState = {
   data: [],
