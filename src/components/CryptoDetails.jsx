@@ -4,6 +4,16 @@ import { useParams } from "react-router-dom";
 import millify from "millify";
 import { Typography, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  FaCheck,
+  FaDollarSign,
+  FaExclamation,
+  FaRegStopCircle,
+  FaTrophy,
+} from "react-icons/fa";
+import { GoNumber } from "react-icons/go";
+import { TbPigMoney } from "react-icons/tb";
+import { AiFillFund, AiTwotoneThunderbolt } from "react-icons/ai";
 import { Bars } from "react-loader-spinner";
 import { coinUrl, fetchCoinData } from "../services/getCoinData";
 
@@ -23,20 +33,20 @@ const CryptoDetails = () => {
     {
       title: "Price to USD",
       value: `$ ${cryptoDetails?.price && millify(cryptoDetails?.price)}`,
-      icon: <DollarCircleOutlined />,
+      icon: <FaDollarSign />,
     },
-    { title: "Rank", value: cryptoDetails?.rank, icon: <NumberOutlined /> },
+    { title: "Rank", value: cryptoDetails?.rank, icon: <GoNumber /> },
     {
       title: "24h Volume",
       value: `$ ${cryptoDetails?.volume && millify(cryptoDetails?.volume)}`,
-      icon: <ThunderboltOutlined />,
+      icon: <AiTwotoneThunderbolt />,
     },
     {
       title: "Market Cap",
       value: `$ ${
         cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)
       }`,
-      icon: <DollarCircleOutlined />,
+      icon: <FaDollarSign />,
     },
     {
       title: "All-time-high(daily avg.)",
@@ -44,7 +54,7 @@ const CryptoDetails = () => {
         cryptoDetails?.allTimeHigh?.price &&
         millify(cryptoDetails?.allTimeHigh?.price)
       }`,
-      icon: <TrophyOutlined />,
+      icon: <FaTrophy />,
     },
   ];
 
@@ -52,28 +62,28 @@ const CryptoDetails = () => {
     {
       title: "Number Of Markets",
       value: cryptoDetails?.numberOfMarkets,
-      icon: <FundOutlined />,
+      icon: <AiFillFund />,
     },
     {
       title: "Number Of Exchanges",
       value: cryptoDetails?.numberOfExchanges,
-      icon: <MoneyCollectOutlined />,
+      icon: <TbPigMoney />,
     },
     {
       title: "Aprroved Supply",
       value: cryptoDetails?.supply?.confirmed ? (
-        <CheckOutlined />
+        <FaCheck />
       ) : (
-        <StopOutlined />
+        <FaRegStopCircle />
       ),
-      icon: <ExclamationCircleOutlined />,
+      icon: <FaExclamation />,
     },
     {
       title: "Total Supply",
       value: `$ ${
         cryptoDetails?.supply?.total && millify(cryptoDetails?.supply?.total)
       }`,
-      icon: <ExclamationCircleOutlined />,
+      icon: <FaExclamation />,
     },
     {
       title: "Circulating Supply",
@@ -81,7 +91,7 @@ const CryptoDetails = () => {
         cryptoDetails?.supply?.circulating &&
         millify(cryptoDetails?.supply?.circulating)
       }`,
-      icon: <ExclamationCircleOutlined />,
+      icon: <FaExclamation />,
     },
   ];
 
