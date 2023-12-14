@@ -24,9 +24,10 @@ const News = ({ simplified }) => {
   const status = useSelector((status) => status.news.status);
 
   // States
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState(data.articles);
   const [selected, setSelected] = useState("Crypto");
 
+  // Function for images to repeat after & after
   const findIndex = (index) => {
     if (index >= images.length) {
       const imageShort = images.length - 1;
@@ -36,6 +37,7 @@ const News = ({ simplified }) => {
     }
   };
 
+  // Select onSubmit
   const handleSelect = (e) => {
     if (!simplified) {
       setSelected(e);
@@ -45,22 +47,23 @@ const News = ({ simplified }) => {
 
   // TODO:- Here crypto data should render 100 results
 
+  // Main useEffect to fetch the news data
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchNews(`${newsUrl}?q=crypto`));
     }
-    if (!simplified) {
-      setArticles(data?.articles);
+    if (simplified) {
+      setArticles(articles?.slice(0, 6));
     } else {
-      setArticles(data?.articles.slice(0, 6));
+      setArticles(data?.articles);
     }
 
-    console.log(articles);
+    // console.log(articles);
 
     // findIndex(14);
-  }, [window.location.href]);
+  }, [simplified]);
 
-  if (status === "loading") {
+  if (status === "loading" || !articles?.length) {
     return (
       <Box
         display="flex"
