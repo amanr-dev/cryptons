@@ -18,13 +18,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { images } from "../services/images";
 
 const News = ({ simplified }) => {
+  const coins = JSON.parse(localStorage.getItem("coins"));
   const dispatch = useDispatch();
   const data = useSelector((status) => status.news.data);
   const status = useSelector((status) => status.news.status);
 
+  // States
   const [articles, setArticles] = useState([]);
-
-  const coins = JSON.parse(localStorage.getItem("coins"));
   const [selected, setSelected] = useState("Crypto");
 
   const findIndex = (index) => {
@@ -44,7 +44,6 @@ const News = ({ simplified }) => {
   };
 
   // TODO:- Here crypto data should render 100 results
-  // console.log(selected);
 
   useEffect(() => {
     if (status === "idle") {
@@ -53,8 +52,10 @@ const News = ({ simplified }) => {
     if (!simplified) {
       setArticles(data?.articles);
     } else {
-      setArticles(data?.articles?.slice(0, 6));
+      setArticles(data?.articles.slice(0, 6));
     }
+
+    console.log(articles);
 
     // findIndex(14);
   }, [window.location.href]);

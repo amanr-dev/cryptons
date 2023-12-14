@@ -47,13 +47,13 @@ const CryptoDetails = () => {
 
   // example response
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd=24h
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchCoinData(`${coinUrl}${coinId}?timePeriod=${timePeriod}`));
-    }
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(fetchCoinData(`${coinUrl}${coinId}?timePeriod=${timePeriod}`));
+  //   }
 
-    console.log({ data, status });
-  }, [coinId]);
+  //   console.log({ data, status });
+  // }, [coinId]);
 
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd?timePeriod=24h
 
