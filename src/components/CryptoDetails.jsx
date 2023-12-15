@@ -32,7 +32,7 @@ const CryptoDetails = () => {
   const cryptoDetails = data?.data?.coin;
   const [timePeriod, setTimePeriod] = useState("7d");
 
-  console.log({ data, status });
+  // console.log({ data, status });
 
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
@@ -130,10 +130,10 @@ const CryptoDetails = () => {
     <Box component="section" className="coin-detail-container">
       <Typography component="div" className="coin-heading-container">
         <Typography variant="h4">
-          {cryptoDetails.name} ({cryptoDetails.symbol}) Price
+          {cryptoDetails?.name} ({cryptoDetails?.symbol}) Price
         </Typography>
         <Typography variant="subtitle1">
-          {cryptoDetails.name} live price in USD. View value statistics, market
+          {cryptoDetails?.name} live price in USD. View value statistics, market
           cap and supply.
         </Typography>
       </Typography>
@@ -161,6 +161,34 @@ const CryptoDetails = () => {
           ))}
         </Select>
       </FormControl>
+      {/* line chart */}
+      <Box className="stats-container">
+        <Box className="coin-value-container">
+          <Box className="coin-value-statistics-heading">
+            <Typography variant="h4" className="coin-details-heading">
+              {cryptoDetails.name} Value Statistics
+            </Typography>
+            <Typography variant="subtitle1">
+              An overview showing the stats of {cryptoDetails.name}
+            </Typography>
+          </Box>
+          {
+            stats?.map({icon, title, value}) => (
+<Box className="coin-stats">
+
+  <Box className="coin-stats-name">
+  <Typography variant="caption" >
+              {icon.name} Value Statistics
+            </Typography>
+            <Typography variant="subtitle1">
+              An overview showing the stats of {cryptoDetails.name}
+            </Typography>
+  </Box>
+</Box>
+            )
+          }
+        </Box>
+      </Box>
     </Box>
   );
 };
