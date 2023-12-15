@@ -137,7 +137,8 @@ a:hover {
 }
 
 .coin-detail-container {
-  margin: 30px;
+  margin: 30px 50%;
+  width: 100%;
 }
 
 .coin-heading-container {

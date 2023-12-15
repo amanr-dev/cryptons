@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { Typography, Box } from "@mui/material";
+import {
+  Typography,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   FaCheck,
@@ -23,7 +30,7 @@ const CryptoDetails = () => {
   const status = useSelector((store) => store.coin.status);
   const data = useSelector((store) => store.coin.data);
   const cryptoDetails = data?.data?.coin;
-  const [timePeriod, setTimePeriod] = useState("24h");
+  const [timePeriod, setTimePeriod] = useState("7d");
 
   console.log({ data, status });
 
@@ -120,8 +127,40 @@ const CryptoDetails = () => {
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd?timePeriod=24h
 
   return (
-    <Box component="section">
-      <Typography variant="subtitle2">Hello to crypto details</Typography>
+    <Box component="section" className="coin-detail-container">
+      <Typography component="div" className="coin-heading-container">
+        <Typography variant="h4">
+          {cryptoDetails.name} ({cryptoDetails.symbol}) Price
+        </Typography>
+        <Typography variant="subtitle1">
+          {cryptoDetails.name} live price in USD. View value statistics, market
+          cap and supply.
+        </Typography>
+      </Typography>
+      <FormControl
+        variant="standard"
+        sx={{ m: 1, minWidth: 150 }}
+        size="medium"
+      >
+        <InputLabel variant="filled" id="select-timeperiod">
+          Select Timeperiod
+        </InputLabel>
+        <Select
+          defaultValue="7d"
+          labelId="select-timeperiod"
+          label="Timeperiod"
+          value={timePeriod}
+          onChange={(e) => setTimePeriod(e.target.value)}
+          className="select-timeperiod"
+        >
+          <MenuItem>{timePeriod}</MenuItem>
+          {time.map((date) => (
+            <MenuItem value={date} key={date}>
+              {date}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </Box>
   );
 };
