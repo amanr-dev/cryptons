@@ -124,8 +124,6 @@ const CryptoDetails = () => {
         </Box>
       );
     }
-
-    // console.log({ data, status });
   }, [coinId]);
 
   // console.log(cryptoDetails[]);
@@ -179,7 +177,7 @@ const CryptoDetails = () => {
             </Typography>
           </Box>
           {stats.map(({ icon, title, value }) => (
-            <Box className="coin-stats">
+            <Box className="coin-stats" key={title}>
               <Box className="coin-stats-name">
                 <Typography color="#0071BD">{icon}</Typography>
                 <Typography>{title}</Typography>
@@ -191,19 +189,44 @@ const CryptoDetails = () => {
         <Box className="other-stats-info">
           <Box className="coin-value-statistics-heading">
             <Typography variant="h4" className="coin-details-heading">
-              {cryptoDetails?.name} Value Statistics
+              Other Statistics
             </Typography>
             <Typography variant="subtitle1">
-              An overview showing the stats of {cryptoDetails?.name}
+              An overview showing the stats of all Cryptocurrencies
             </Typography>
           </Box>
-          {stats.map(({ icon, title, value }) => (
+          {genericStats.map(({ icon, title, value }) => (
             <Box className="coin-stats">
               <Box className="coin-stats-name">
                 <Typography color="#0071BD">{icon}</Typography>
                 <Typography>{title}</Typography>
               </Box>
               <Typography className="stats">{value}</Typography>
+            </Box>
+          ))}
+        </Box>
+      </Box>
+      <Box className="coin-desc-link">
+        <Box className="coin-desc">
+          <Typography variant="h4" className="coin-details-heading">
+            What is {cryptoDetails.name}
+            <Typography variant="h5">
+              {HTMLReactParser(cryptoDetails.description)}
+            </Typography>
+          </Typography>
+        </Box>
+        <Box className="coin-links">
+          <Typography variant="h3" className="coin-details-heading">
+            {cryptoDetails.name} Links
+          </Typography>
+          {cryptoDetails?.links?.map((link) => (
+            <Box className="coin-link" key={link.name}>
+              <Typography variant="body2" className="link-name">
+                {link.type}
+              </Typography>
+              <a href={link.url} target="_blank" rel="noreferrer">
+                {link.name}
+              </a>
             </Box>
           ))}
         </Box>
