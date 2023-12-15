@@ -36,6 +36,7 @@ const CryptoDetails = () => {
 
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
+  // const { rank } = cryptoDetails;
   const stats = [
     {
       title: "Price to USD",
@@ -124,7 +125,7 @@ const CryptoDetails = () => {
     // console.log({ data, status });
   }, [coinId]);
 
-  console.log(cryptoDetails);
+  // console.log(cryptoDetails[]);
 
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd?timePeriod=24h
 
@@ -177,7 +178,7 @@ const CryptoDetails = () => {
           {stats.map(({ icon, title, value }) => (
             <Box className="coin-stats">
               <Box className="coin-stats-name">
-                <Typography>{icon}</Typography>
+                <Typography color="#0071BD">{icon}</Typography>
                 <Typography>{title}</Typography>
               </Box>
               <Typography className="stats">{value}</Typography>
