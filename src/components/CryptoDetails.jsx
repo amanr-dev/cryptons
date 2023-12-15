@@ -124,6 +124,8 @@ const CryptoDetails = () => {
     // console.log({ data, status });
   }, [coinId]);
 
+  console.log(cryptoDetails);
+
   // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd?timePeriod=24h
 
   return (
@@ -166,27 +168,21 @@ const CryptoDetails = () => {
         <Box className="coin-value-container">
           <Box className="coin-value-statistics-heading">
             <Typography variant="h4" className="coin-details-heading">
-              {cryptoDetails.name} Value Statistics
+              {cryptoDetails?.name} Value Statistics
             </Typography>
             <Typography variant="subtitle1">
-              An overview showing the stats of {cryptoDetails.name}
+              An overview showing the stats of {cryptoDetails?.name}
             </Typography>
           </Box>
-          {
-            stats?.map({icon, title, value}) => (
-<Box className="coin-stats">
-
-  <Box className="coin-stats-name">
-  <Typography variant="caption" >
-              {icon.name} Value Statistics
-            </Typography>
-            <Typography variant="subtitle1">
-              An overview showing the stats of {cryptoDetails.name}
-            </Typography>
-  </Box>
-</Box>
-            )
-          }
+          {stats.map(({ icon, title, value }) => (
+            <Box className="coin-stats">
+              <Box className="coin-stats-name">
+                <Typography>{icon}</Typography>
+                <Typography>{title}</Typography>
+              </Box>
+              <Typography className="stats">{value}</Typography>
+            </Box>
+          ))}
         </Box>
       </Box>
     </Box>
