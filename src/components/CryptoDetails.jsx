@@ -46,7 +46,10 @@ const CryptoDetails = () => {
     { title: "Rank", value: cryptoDetails?.rank, icon: <GoNumber /> },
     {
       title: "24h Volume",
-      value: `$ ${cryptoDetails?.volume && millify(cryptoDetails?.volume)}`,
+      value: `Above $ ${
+        (cryptoDetails?.volume && millify(cryptoDetails?.volume)) ||
+        millify("28030883815")
+      }`,
       icon: <AiTwotoneThunderbolt />,
     },
     {
@@ -167,6 +170,25 @@ const CryptoDetails = () => {
       {/* line chart */}
       <Box className="stats-container">
         <Box className="coin-value-container">
+          <Box className="coin-value-statistics-heading">
+            <Typography variant="h4" className="coin-details-heading">
+              {cryptoDetails?.name} Value Statistics
+            </Typography>
+            <Typography variant="subtitle1">
+              An overview showing the stats of {cryptoDetails?.name}
+            </Typography>
+          </Box>
+          {stats.map(({ icon, title, value }) => (
+            <Box className="coin-stats">
+              <Box className="coin-stats-name">
+                <Typography color="#0071BD">{icon}</Typography>
+                <Typography>{title}</Typography>
+              </Box>
+              <Typography className="stats">{value}</Typography>
+            </Box>
+          ))}
+        </Box>
+        <Box className="other-stats-info">
           <Box className="coin-value-statistics-heading">
             <Typography variant="h4" className="coin-details-heading">
               {cryptoDetails?.name} Value Statistics
