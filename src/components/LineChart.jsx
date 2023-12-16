@@ -39,7 +39,7 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
     datasets: [
       {
         label: "Price in USD",
-        coinData: coinPrice,
+        data: coinPrice,
         fill: false,
         backgroundColor: "#0071bd",
         borderColor: "0071bd",
@@ -74,7 +74,7 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
           </Typography>
         </Box>
       </Box>
-      <Line data={chartData} />
+      <Line data={chartData} options={chartOptions} />
     </>
   );
 };
