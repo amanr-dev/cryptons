@@ -8,10 +8,19 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  Legend,
+  Tooltip,
 } from "chart.js";
 import { coinHistoryUrl, fetchCoinHistory } from "../services/getCoinHistory";
 import { useParams } from "react-router-dom";
-ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Legend,
+  Tooltip
+);
 
 const LineChart = ({ timePeriod, currentPrice, coinName }) => {
   const dispatch = useDispatch();
@@ -42,13 +51,13 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
       //  console.log(a);
     }
   }
-  console.log({ coinPrice, coinTimestamp, chartHistory });
+  //   console.log({ coinPrice, coinTimestamp, chartHistory });
 
   const datas = {
     labels: coinTimestamp,
     datasets: [
       {
-        labels: "Price in USD",
+        label: "Price in USD",
         data: coinPrice,
         fill: false,
 
@@ -65,13 +74,14 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
       legend: true,
     },
     scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
+      //  y: [
+      //    {
+      //      ticks: {
+      //        beginAtZero: true,
+      //      },
+      //    },
+      //  ],
+      y: {},
     },
   };
 
