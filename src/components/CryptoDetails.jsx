@@ -23,6 +23,7 @@ import { TbPigMoney } from "react-icons/tb";
 import { AiFillFund, AiTwotoneThunderbolt } from "react-icons/ai";
 import { Bars } from "react-loader-spinner";
 import { coinUrl, fetchCoinData } from "../services/getCoinData";
+import LineChart from "./LineChart";
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
@@ -32,11 +33,12 @@ const CryptoDetails = () => {
   const cryptoDetails = data?.data?.coin;
   const [timePeriod, setTimePeriod] = useState("7d");
 
-  // console.log({ data, status });
-
   const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
-  // const { rank } = cryptoDetails;
+  // const coinHistory = dispatch(
+  //   fetchCoinData(`${coinUrl}${coinId}/history/timePeriod=${timePeriod}`)
+  // );
+
   const stats = [
     {
       title: "Price to USD",
@@ -106,9 +108,6 @@ const CryptoDetails = () => {
     },
   ];
 
-  // example response
-  // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd=24h
-
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchCoinData(`${coinUrl}${coinId}?timePeriod=${timePeriod}`));
@@ -125,10 +124,6 @@ const CryptoDetails = () => {
       );
     }
   }, [coinId]);
-
-  // console.log(cryptoDetails[]);
-
-  // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd?timePeriod=24h
 
   return (
     <Box component="section" className="coin-detail-container">
@@ -166,6 +161,11 @@ const CryptoDetails = () => {
         </Select>
       </FormControl>
       {/* line chart */}
+      <LineChart
+        currentPrice={millify(cryptoDetails?.price)}
+        coinName={cryptoDetails?.name}
+        timePeriod={timePeriod}
+      />
       <Box className="stats-container">
         <Box className="coin-value-container">
           <Box className="coin-value-statistics-heading">
@@ -211,8 +211,9 @@ const CryptoDetails = () => {
           <Typography variant="h4" className="coin-details-heading">
             What is {cryptoDetails?.name}
             <Typography marginTop={5} lineHeight={2} variant="h5">
-              {HTMLReactParser(cryptoDetails?.description)}
-              {/* {cryptoDetails?.description} */}
+              {(cryptoDetails?.description &&
+                HTMLReactParser(cryptoDetails?.description)) ||
+                cryptoDetails?.description}
             </Typography>
           </Typography>
         </Box>
