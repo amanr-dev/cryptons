@@ -212,6 +212,7 @@ a:hover {
   gap: 40px;
   margin-top: 40px;
   padding-top: 20px;
+  padding: 0px 60px;
 }
 
 .coin-desc-link h2 {

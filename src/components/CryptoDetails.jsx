@@ -209,18 +209,19 @@ const CryptoDetails = () => {
       <Box className="coin-desc-link">
         <Box className="coin-desc">
           <Typography variant="h4" className="coin-details-heading">
-            What is {cryptoDetails.name}
-            <Typography variant="h5">
-              {HTMLReactParser(cryptoDetails.description)}
+            What is {cryptoDetails?.name}
+            <Typography marginTop={5} lineHeight={2} variant="h5">
+              {HTMLReactParser(cryptoDetails?.description)}
+              {/* {cryptoDetails?.description} */}
             </Typography>
           </Typography>
         </Box>
         <Box className="coin-links">
-          <Typography variant="h3" className="coin-details-heading">
-            {cryptoDetails.name} Links
+          <Typography variant="h4" className="coin-details-heading">
+            {cryptoDetails?.name} Links
           </Typography>
           {cryptoDetails?.links?.map((link) => (
-            <Box className="coin-link" key={link.name}>
+            <Box marginTop={5} className="coin-link" key={link.name}>
               <Typography variant="body2" className="link-name">
                 {link.type}
               </Typography>
