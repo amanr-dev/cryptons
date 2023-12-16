@@ -8,12 +8,10 @@ import { useParams } from "react-router-dom";
 const LineChart = ({ timePeriod, currentPrice, coinName }) => {
   const dispatch = useDispatch();
   const { coinId } = useParams();
+  let coinPrice = [];
+  let coinTimestamp = [];
   const data = useSelector((store) => store.history.data);
   const status = useSelector((store) => store.history.status);
-
-  // https://coinranking1.p.rapidapi.com/coin/Qwsogvtv82FCd/history?timePeriod=24h
-
-  // dispatch(fetchCoinData(`${coinUrl}${coinId}?timePeriod=${timePeriod}`));
   useEffect(() => {
     if (status === "idle") {
       dispatch(
@@ -25,21 +23,59 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
     //     console.log({ data, status });
   }, []);
 
+  if (status === "succeeded") {
+    for (let a = 0; a < data?.data?.history?.length; a += 1) {
+      coinPrice.push(data.data.history[a].price);
+      coinTimestamp.push(
+        new Date(data.data.history[a].timestamp).toLocaleDateString()
+      );
+      //  console.log(a);
+    }
+  }
+  //   console.log({ coinPrice, coinTimestamp });
+
+  const chartData = {
+    labels: coinTimestamp,
+    datasets: [
+      {
+        label: "Price in USD",
+        coinData: coinPrice,
+        fill: false,
+        backgroundColor: "#0071bd",
+        borderColor: "0071bd",
+      },
+    ],
+  };
+
+  const chartOptions = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
   return (
-    <Box className="chart-header">
-      <Typography variant="h4" className="chart-title">
-        {coinName} Price chart{" "}
-      </Typography>
-      <Box className="price-container">
-        <Typography variant="h5" className="price-change">
-          {data?.data?.change}
+    <>
+      <Box className="chart-header">
+        <Typography variant="h4" className="chart-title">
+          {coinName} Price chart{" "}
         </Typography>
-        <Typography variant="h5" className="current-price">
-          Current {coinName} Price: {currentPrice}
-        </Typography>
+        <Box className="price-container">
+          <Typography variant="h5" className="price-change">
+            {data?.data?.change}
+          </Typography>
+          <Typography variant="h5" className="current-price">
+            Current {coinName} Price: {currentPrice}
+          </Typography>
+        </Box>
       </Box>
-    </Box>
-    //     <Line />
+      <Line data={chartData} />
+    </>
   );
 };
 
