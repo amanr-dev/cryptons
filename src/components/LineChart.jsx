@@ -2,8 +2,16 @@ import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  Chart as ChartJS,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+} from "chart.js";
 import { coinHistoryUrl, fetchCoinHistory } from "../services/getCoinHistory";
 import { useParams } from "react-router-dom";
+ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
 const LineChart = ({ timePeriod, currentPrice, coinName }) => {
   const dispatch = useDispatch();
@@ -12,42 +20,50 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
   let coinTimestamp = [];
   const data = useSelector((store) => store.history.data);
   const status = useSelector((store) => store.history.status);
+
+  const chartHistory = data?.data?.history?.slice(0, 40);
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(
         fetchCoinHistory(
-          `${coinHistoryUrl}${coinId}/history?timePeriod=${timePeriod}`
+          `${coinHistoryUrl}${coinId}/history?timePeriod=${timePeriod}&limit=30`
         )
       );
     }
-    //     console.log({ data, status });
   }, []);
 
   if (status === "succeeded") {
-    for (let a = 0; a < data?.data?.history?.length; a += 1) {
-      coinPrice.push(data.data.history[a].price);
+    for (let a = 0; a < chartHistory?.length; a += 1) {
+      coinPrice.push(chartHistory[a].price);
       coinTimestamp.push(
-        new Date(data.data.history[a].timestamp).toLocaleDateString()
+        new Date(chartHistory[a].timestamp).toLocaleDateString()
       );
       //  console.log(a);
     }
   }
-  //   console.log({ coinPrice, coinTimestamp });
+  console.log({ coinPrice, coinTimestamp, chartHistory });
 
-  const chartData = {
+  const datas = {
     labels: coinTimestamp,
     datasets: [
       {
-        label: "Price in USD",
+        labels: "Price in USD",
         data: coinPrice,
         fill: false,
-        backgroundColor: "#0071bd",
-        borderColor: "0071bd",
+
+        backgroundColor: "aqua",
+        borderColor: "black",
+        borderWidth: 1,
+        pointBorderColor: "aqua",
       },
     ],
   };
 
-  const chartOptions = {
+  const options = {
+    plugins: {
+      legend: true,
+    },
     scales: {
       yAxes: [
         {
@@ -74,46 +90,9 @@ const LineChart = ({ timePeriod, currentPrice, coinName }) => {
           </Typography>
         </Box>
       </Box>
-      <Line data={chartData} options={chartOptions} />
+      <Line data={datas} options={options} />
     </>
   );
 };
 
 export default LineChart;
-
-// return (
-//      <>
-//        <Row className="chart-header">
-//          <Title level={2} className="chart-title">{coinName} Price Chart </Title>
-//          <Col className="price-container">
-//            <Title level={5} className="price-change">Change: {coinHistory?.data?.change}%</Title>
-//            <Title level={5} className="current-price">Current {coinName} Price: $ {currentPrice}</Title>
-//          </Col>
-//        </Row>
-//        <Line data={data} options={options} />
-//      </>
-
-// const data = {
-//      labels: coinTimestamp,
-//      datasets: [
-//        {
-//          label: 'Price In USD',
-//          data: coinPrice,
-//          fill: false,
-//          backgroundColor: '#0071bd',
-//          borderColor: '#0071bd',
-//        },
-//      ],
-//    };
-
-//    const options = {
-//      scales: {
-//        yAxes: [
-//          {
-//            ticks: {
-//              beginAtZero: true,
-//            },
-//          },
-//        ],
-//      },
-//    };
