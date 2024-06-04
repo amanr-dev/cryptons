@@ -24,7 +24,7 @@ const News = ({ simplified }) => {
   const status = useSelector((status) => status.news.status);
 
   // States
-  const [articles, setArticles] = useState(data.articles);
+  const [articles, setArticles] = useState(data?.articles);
   const [selected, setSelected] = useState("Crypto");
 
   // Function for images to repeat after & after
@@ -63,7 +63,7 @@ const News = ({ simplified }) => {
     // findIndex(14);
   }, [simplified]);
 
-  if (status === "loading" || !articles?.length) {
+  if (status === "loading") {
     return (
       <Box
         display="flex"
